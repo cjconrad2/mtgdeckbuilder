@@ -1,94 +1,36 @@
 import React from 'react';
 import uuid from 'uuid';
+import {compose} from 'redux';
+import {DragDropContext} from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
 
-import Notes from './Notes';
+import connect from '../libs/connect';
+import Lanes from './Lanes';
+import LaneActions from '../actions/LaneActions';
 
-export default class App extends React.Component {
-    constructor(props) {
-      super(props);
-  
-      this.state = {
-        notes: [
-          {
-            id: uuid.v4(),
-            editing: false,
-            task: 'Learn React'
-          },
-          {
-            id: uuid.v4(),
-            editing: false,
-            task: 'Do laundry'
-          }
-        ]
-      };
-    }
+class App extends React.Component {
     render() {
-      const {notes} = this.state;
-  
+      const {lanes} = this.props;
       return (
         <div>
-          <button className="add-note" onClick={this.addNote}>+</button>
-          <Notes 
-            onNoteClick={this.activateNoteEdit}
-            onEdit={this.editNote}
-            onDelete={this.deleteNote}
-            notes={notes} />
+          <button className="add-lane" onClick={this.addLane}>+</button>
+          <Lanes lanes={lanes} />
         </div>
       );
     }
-
-    addNote = () => {
-      // It would be possible to write this in an imperative style.
-      // I.e., through `this.state.notes.push` and then
-      // `this.setState({notes: this.state.notes})` to commit.
-      //
-      // I tend to favor functional style whenever that makes sense.
-      // Even though it might take more code sometimes, I feel
-      // the benefits (easy to reason about, no side effects)
-      // more than make up for it.
-      //
-      // Libraries, such as Immutable.js, go a notch further.
-      this.setState({
-        notes: this.state.notes.concat([{
-          id: uuid.v4(),
-          task: '',
-          editing: true
-        }])
-      });
-    }
-
-    deleteNote = (id, e) => {
-        e.stopPropagation();
-        this.setState({
-            notes: this.state.notes.filter(note => note.id !== id)
-        });
-    }
-
-    activateNoteEdit = (id, e) => {
-        console.log('Note clicked')
-        console.log(id)
-        this.setState({
-            notes: this.state.notes.map(note => {
-              console.log(note)
-                if(note.id === id) {
-                    console.log('editing set to true')
-                    note.editing = true;
-                    
-                }
-                return note;
-            })
-        });
-    }
-
-    editNote = (id, task) => {
-        this.setState({
-            notes: this.state.notes.map(note => {
-                if(note.id === id) {
-                    note.editing = false;
-                    note.task = task;
-                }
-                return note;
-            })
-        });
-    }
+    addLane = () => {
+      LaneActions.create({
+        id: uuid.v4(),
+        name: '',
+        editing: true
+    });
   }
+}
+
+export default compose(
+  DragDropContext(HTML5Backend),
+  connect(
+    ({lanes}) => ({lanes}),
+    {LaneActions}
+  )
+)(App)
