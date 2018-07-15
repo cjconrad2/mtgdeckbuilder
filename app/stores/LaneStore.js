@@ -6,19 +6,13 @@ export default class LaneStore {
   constructor() {
     this.bindActions(LaneActions);
 
-    this.lanes = [
-        {
-            id: 1,
-            name: 'first lane',
-            notes: []
-        }
-    ];
+    this.lanes = [];
   }
   create(lane) {
     // If `notes` aren't provided for some reason,
     // default to an empty array.
     lane.notes = lane.notes || [];
-
+    console.log('New lane:', lane)
     this.setState({
       lanes: this.lanes.concat(lane)
     });
@@ -65,7 +59,7 @@ export default class LaneStore {
       })
     });
   }
-  move({sourceId, targetId}) {
+  moveNote({sourceId, targetId}) {
     const lanes = this.lanes;
     const sourceLane = lanes.filter(lane => lane.notes.includes(sourceId))[0];
     const targetLane = lanes.filter(lane => lane.notes.includes(targetId))[0];
@@ -90,5 +84,26 @@ export default class LaneStore {
     }
 
     this.setState({lanes});
+  }
+  moveLane({sourceId, targetId}){
+    var lanes = this.lanes;
+    const sourceLane = lanes.filter(lane => lane.id === sourceId)[0];
+    const targetLane = lanes.filter(lane => lane.id === targetId)[0];
+    const sourceLaneIndex = lanes.indexOf(sourceLane);
+    const targetLaneIndex = lanes.indexOf(targetLane);
+    console.log('source lane:', sourceLane, ' target lane:', targetLane)
+
+    if(sourceLane === targetLane) {
+        //DoNothing
+    }
+    else {
+        lanes = update(lanes, {
+            $splice: [
+              [sourceLaneIndex, 1],
+              [targetLaneIndex, 0, sourceLane]
+            ]
+          });
+    }
+    this.setState({lanes})
   }
 }

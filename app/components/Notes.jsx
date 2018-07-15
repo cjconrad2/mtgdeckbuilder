@@ -16,7 +16,7 @@ export default class Notes extends React.Component {
                         editing={editing}
                         onEdit={this.props.onEdit.bind(null, id)} 
                         onDelete={this.props.onDelete.bind(null, id)}
-                        onMove={LaneActions.move}
+                        onMove={LaneActions.moveNote}
                         task={task}
                         id={id} />
                 </li>

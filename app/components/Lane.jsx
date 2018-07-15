@@ -1,6 +1,6 @@
 import React from 'react';
 import {compose} from 'redux';
-import {DropTarget} from 'react-dnd';
+import {DragSource, DropTarget} from 'react-dnd';
 
 import ItemTypes from '../constants/itemTypes';
 import connect from '../libs/connect';
@@ -14,7 +14,7 @@ class Lane extends React.Component {
         super(props)
     }
     render() {
-        return this.props.connectDropTarget(
+        return compose(this.props.connectLaneDragSource, this.props.connectLaneDropTarget, this.props.connectNoteDropTarget)(
             <div className='lane'>
                 <LaneHeader lane={this.props.lane} />
                 <Notes
@@ -42,26 +42,46 @@ class Lane extends React.Component {
     };
 }
 
-const noteTarget = {
+const laneDragSource = {
+    beginDrag(props) {
+        return {
+            id: props.lane.id
+        };
+    }
+};
+
+const laneDropTarget = {
     hover(targetProps, monitor) {
-      const sourceProps = monitor.getItem();
-      const sourceId = sourceProps.id;
+        const targetId = targetProps.lane.id;
+        const sourceProps = monitor.getItem();
+        const sourceId = sourceProps.id;
   
-      // If the target lane doesn't have notes,
-      // attach the note to it.
-      //
-      // `attachToLane` performs necessarly
-      // cleanup by default and it guarantees
-      // a note can belong only to a single lane
-      // at a time.
+        if(sourceId !== targetId) {
+            targetProps.onMove({sourceId, targetId});
+        }
+    }
+};
+
+const noteDropTarget = {
+    hover(targetProps, monitor) {
+        const sourceProps = monitor.getItem();
+        const sourceId = sourceProps.id;
+  
+        // If the target lane doesn't have notes,
+        // attach the note to it.
+        //
+        // `attachToLane` performs necessarly
+        // cleanup by default and it guarantees
+        // a note can belong only to a single lane
+        // at a time.
       if(!targetProps.lane.notes.length) {
-        LaneActions.attachToLane({
-          laneId: targetProps.lane.id,
-          noteId: sourceId
-        });
+            LaneActions.attachToLane({
+                laneId: targetProps.lane.id,
+                noteId: sourceId
+            });
       }
     }
-  };
+};
 
 function selectNotesByIds(allNotes, noteIds = []) {
     // `reduce` is a powerful method that allows us to
@@ -78,8 +98,14 @@ function selectNotesByIds(allNotes, noteIds = []) {
 
 
 export default compose(
-    DropTarget(ItemTypes.NOTE, noteTarget, connect => ({
-        connectDropTarget: connect.dropTarget()
+    DragSource(ItemTypes.LANE, laneDragSource, connect => ({
+        connectLaneDragSource: connect.dragSource()
+    })),
+    DropTarget(ItemTypes.LANE, laneDropTarget, connect => ({
+        connectLaneDropTarget: connect.dropTarget()
+    })),
+    DropTarget(ItemTypes.NOTE, noteDropTarget, connect => ({
+        connectNoteDropTarget: connect.dropTarget()
     })),
     connect(({notes}) => ({
         notes

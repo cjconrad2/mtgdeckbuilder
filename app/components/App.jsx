@@ -19,8 +19,10 @@ class App extends React.Component {
       );
     }
     addLane = () => {
+      const id = uuid.v4();
       LaneActions.create({
-        id: uuid.v4(),
+        id: id,
+        key: id,
         name: '',
         editing: true
     });
