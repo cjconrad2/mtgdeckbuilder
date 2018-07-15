@@ -1,4 +1,8 @@
 import React from 'react';
+import {compose} from 'redux';
+import {DropTarget} from 'react-dnd';
+
+import ItemTypes from '../constants/itemTypes';
 import connect from '../libs/connect';
 import NoteActions from '../actions/NoteActions';
 import LaneActions from '../actions/LaneActions';
@@ -10,7 +14,7 @@ class Lane extends React.Component {
         super(props)
     }
     render() {
-        return (
+        return this.props.connectDropTarget(
             <div className='lane'>
                 <LaneHeader lane={this.props.lane} />
                 <Notes
@@ -38,6 +42,27 @@ class Lane extends React.Component {
     };
 }
 
+const noteTarget = {
+    hover(targetProps, monitor) {
+      const sourceProps = monitor.getItem();
+      const sourceId = sourceProps.id;
+  
+      // If the target lane doesn't have notes,
+      // attach the note to it.
+      //
+      // `attachToLane` performs necessarly
+      // cleanup by default and it guarantees
+      // a note can belong only to a single lane
+      // at a time.
+      if(!targetProps.lane.notes.length) {
+        LaneActions.attachToLane({
+          laneId: targetProps.lane.id,
+          noteId: sourceId
+        });
+      }
+    }
+  };
+
 function selectNotesByIds(allNotes, noteIds = []) {
     // `reduce` is a powerful method that allows us to
     // fold data. You can implement `filter` and `map`
@@ -51,11 +76,15 @@ function selectNotesByIds(allNotes, noteIds = []) {
     , []);
   }
 
-export default connect(
-    ({notes}) => ({
-      notes
+
+export default compose(
+    DropTarget(ItemTypes.NOTE, noteTarget, connect => ({
+        connectDropTarget: connect.dropTarget()
+    })),
+    connect(({notes}) => ({
+        notes
     }), {
-      NoteActions,
-      LaneActions
-    }
-  )(Lane)
+        NoteActions,
+        LaneActions
+    })
+)(Lane)

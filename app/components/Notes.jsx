@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Note from './Note';
+import LaneActions from '../actions/LaneActions';
 
 export default class Notes extends React.Component {
     constructor(props) {
@@ -15,7 +16,9 @@ export default class Notes extends React.Component {
                         editing={editing}
                         onEdit={this.props.onEdit.bind(null, id)} 
                         onDelete={this.props.onDelete.bind(null, id)}
-                        task={task} />
+                        onMove={LaneActions.move}
+                        task={task}
+                        id={id} />
                 </li>
               )}</ul>
         )

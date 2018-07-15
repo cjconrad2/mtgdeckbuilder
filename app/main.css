@@ -14,7 +14,6 @@ body {
   border-radius: 0.5em;
 
   min-width: 10em;
-  max-width: 11em;
   vertical-align: top;
 }
 
@@ -28,8 +27,6 @@ body {
 
   border-top-left-radius: 0.5em;
   border-top-right-radius: 0.5em;
-
-  max-width: 11em;
 }
 
 .lane-name {
@@ -100,7 +97,9 @@ body {
 
 .note .editable {
   float: left;
+  max-width: 9.5em
 }
+
 .note .delete {
   float: right;
 
