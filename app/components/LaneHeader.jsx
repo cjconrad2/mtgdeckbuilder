@@ -1,8 +1,6 @@
 import React from 'react';
-import uuid from 'uuid';
 
 import connect from '../libs/connect';
-import NoteActions from '../actions/NoteActions';
 import LaneActions from '../actions/LaneActions';
 import Editable from './Editable';
 
@@ -11,9 +9,6 @@ class LaneHeader extends React.Component {
     render() {
         return (
             <div className="lane-header" onClick={this.activateLaneEdit}>
-                <div className="lane-add-note">
-                    <button onClick={this.addNote}>+</button>
-                </div>
                 <Editable 
                     className="lane-name" 
                     editing={this.props.lane.editing}
@@ -25,21 +20,6 @@ class LaneHeader extends React.Component {
             </div>
           );
     }
-    addNote = e => {
-        e.stopPropagation();
-    
-        const noteId = uuid.v4();
-    
-        NoteActions.create({
-            id: noteId,
-            task: '',
-            editing: true
-        });
-        LaneActions.attachToLane({
-            laneId: this.props.lane.id,
-            noteId
-        });
-    };
     activateLaneEdit = () => {
         LaneActions.update({
             id: this.props.lane.id,
@@ -60,7 +40,6 @@ class LaneHeader extends React.Component {
 
 export default connect(
     () => ({}), {
-      NoteActions,
       LaneActions
     }
 )(LaneHeader)

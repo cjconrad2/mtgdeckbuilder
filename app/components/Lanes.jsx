@@ -7,6 +7,7 @@ export default class Lanes extends React.Component {
         super(props)
     }
     render() {
+        console.log(this.props)
         return (
             <div className="lanes">{this.props.lanes.map(lane =>
                     <Lane 

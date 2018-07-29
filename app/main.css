@@ -67,6 +67,25 @@ body {
   border: 0;
 }
 
+.add-card-wrapper:hover {
+  overflow: auto;
+
+  margin: 0.5em;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+
+  background-color: #fdfdfd;
+  box-shadow: 0 0 0.3em .03em rgba(0,0,0,.3);
+
+  transition: .6s
+}
+
+.add-card {
+  text-align: center;
+  margin: 1em; 
+  font-size: 10pt;
+}
+
 .notes {
   margin: 0.5em;
   padding-left: 0;

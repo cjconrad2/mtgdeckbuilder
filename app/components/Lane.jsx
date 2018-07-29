@@ -1,6 +1,7 @@
 import React from 'react';
 import {compose} from 'redux';
 import {DragSource, DropTarget} from 'react-dnd';
+import uuid from 'uuid';
 
 import ItemTypes from '../constants/itemTypes';
 import connect from '../libs/connect';
@@ -22,6 +23,9 @@ class Lane extends React.Component {
                     onNoteClick={this.activateNoteEdit}
                     onEdit={this.editNote}
                     onDelete={this.deleteNote} />
+                <div className='add-card-wrapper' onClick={this.addNote}>
+                    <div className='add-card'>Add card</div>
+                </div>
             </div>
           );
     }
@@ -39,6 +43,22 @@ class Lane extends React.Component {
     };
     activateNoteEdit = id => {
         NoteActions.update({id, editing: true});
+    };
+    addNote = e => {
+        e.stopPropagation();
+        const noteId = uuid.v4();
+        console.log('about to add note')
+    
+        NoteActions.create({
+            id: noteId,
+            task: '',
+            editing: true,
+            newNote: true
+        });
+        LaneActions.attachToLane({
+            laneId: this.props.lane.id,
+            noteId
+        });
     };
 }
 

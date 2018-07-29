@@ -6,14 +6,26 @@ import HTML5Backend from 'react-dnd-html5-backend';
 
 import connect from '../libs/connect';
 import Lanes from './Lanes';
+import CardBox from './CardBox'
+import Sets from './Sets'
 import LaneActions from '../actions/LaneActions';
+import CardActions from '../actions/CardActions';
+import SetActions from '../actions/SetActions';
+import MagicApi from '../Api/MagicApi';
 
 class App extends React.Component {
     render() {
       const {lanes} = this.props;
+      const {cards} = this.props;
+      const {sets} = this.props;
+      const {selectedSet} = this.props;
       return (
         <div>
           <button className="add-lane" onClick={this.addLane}>+</button>
+          <button className="get-cards" onClick={this.getCards}>Get Cards</button>
+          <button className="get-sets" onClick={this.getSets}>Get Sets</button>
+          <Sets sets={sets} selectedSet={selectedSet} handleSelectSet={this.handleSelectSet}/>
+          <CardBox cards={cards}/>
           <Lanes lanes={lanes} />
         </div>
       );
@@ -27,12 +39,23 @@ class App extends React.Component {
         editing: true
     });
   }
+  getCards = () => {
+    console.log('in getCards')
+    MagicApi.getCards(this.props.selectedSet.code);
+  }
+  getSets = () => {
+    console.log('in getSets')
+    MagicApi.getSets();
+  }
+  handleSelectSet = (event) => {
+    SetActions.selectSet(event.target.value);
+  }
 }
 
 export default compose(
   DragDropContext(HTML5Backend),
   connect(
-    ({lanes}) => ({lanes}),
-    {LaneActions}
+    ({lanes, cards, sets, selectedSet}) => ({lanes, cards, sets, selectedSet}),
+    {LaneActions, CardActions, SetActions}
   )
 )(App)
