@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Card from './Card'
+import CardList from './CardList'
 
 export default class CardBox extends React.Component {
     render() {
@@ -8,14 +8,7 @@ export default class CardBox extends React.Component {
         return (
             <ul className="card-box">
                 <input className="card-search" value={this.props.cardSearchString} onChange={this.props.handleCardSearchChange}/>
-                {this.props.cards.map(({id, name, imageUrl}) =>
-                    <li key={id}>
-                        <Card
-                            name={name}
-                             id={id}
-                            imageUrl={imageUrl} />
-                    </li>
-                )}
+                <CardList cards={this.props.cards}/>
             </ul>
           );
     }

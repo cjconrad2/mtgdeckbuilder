@@ -1,4 +1,6 @@
 export default {
     NOTE: 'note',
-    LANE: 'lane'
+    LANE: 'lane',
+    CARD: 'card',
+    Deck: 'deck'
 };

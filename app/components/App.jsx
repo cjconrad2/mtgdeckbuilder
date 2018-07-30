@@ -25,12 +25,12 @@ class App extends React.Component {
       return (
         <div>
           <button className="add-lane" onClick={this.addLane}>+</button>
-          <button className="get-cards" onClick={this.getCards}>Get Cards</button>
-          <button className="get-sets" onClick={this.getSets}>Get Sets</button>
           <Menu 
             sets={sets} 
             selectedSet={selectedSet}
-            cards={filteredCards} 
+            // TODO: THIS IS WHERE YOU SHOULD PICK UP. You added the map to make things work as is,
+            // but cards here should be and array of {uid, cardInfo}
+            cards={filteredCards.map(card => card.cardInfo)} 
             cardSearchString={cardSearchString} />
           <Lanes lanes={lanes} />
         </div>
