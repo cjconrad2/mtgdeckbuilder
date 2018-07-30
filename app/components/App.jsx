@@ -19,13 +19,15 @@ class App extends React.Component {
       const {cards} = this.props;
       const {sets} = this.props;
       const {selectedSet} = this.props;
+      const {filteredCards} = this.props;
+      const {cardSearchString} = this.props;
       return (
         <div>
           <button className="add-lane" onClick={this.addLane}>+</button>
           <button className="get-cards" onClick={this.getCards}>Get Cards</button>
           <button className="get-sets" onClick={this.getSets}>Get Sets</button>
           <Sets sets={sets} selectedSet={selectedSet} handleSelectSet={this.handleSelectSet}/>
-          <CardBox cards={cards}/>
+          <CardBox cards={filteredCards} cardSearchString={cardSearchString} handleCardSearchChange={this.handleCardSearchChange}/>
           <Lanes lanes={lanes} />
         </div>
       );
@@ -50,12 +52,15 @@ class App extends React.Component {
   handleSelectSet = (event) => {
     SetActions.selectSet(event.target.value);
   }
+  handleCardSearchChange = (event) => {
+    CardActions.searchCards(event.target.value)
+  }
 }
 
 export default compose(
   DragDropContext(HTML5Backend),
   connect(
-    ({lanes, cards, sets, selectedSet}) => ({lanes, cards, sets, selectedSet}),
+    ({lanes, cards, filteredCards, cardSearchString, sets, selectedSet}) => ({lanes, cards, filteredCards, cardSearchString, sets, selectedSet}),
     {LaneActions, CardActions, SetActions}
   )
 )(App)

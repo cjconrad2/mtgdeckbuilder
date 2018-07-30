@@ -1,7 +1,5 @@
 import React from 'react';
 
-import Set from './Set'
-
 export default class Sets extends React.Component {
     render() {
         console.log(this.props)

@@ -6,7 +6,7 @@ module.exports = {
 
     getCards: function(setCode) {
        console.log('in getCard in Api')
-     request.get(`https://api.magicthegathering.io/v1/cards?set=${setCode}`)
+     request.get(`https://api.magicthegathering.io/v1/cards?set=${setCode}&pageSize=500`)
        .set('Accept', 'application/json')
        .end(function(err, response) {
          if (err) return console.error(err);
