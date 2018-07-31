@@ -15,7 +15,7 @@ class Deck extends React.Component {
     }
     render() {
         return compose(this.props.connectDeckDragSource, this.props.connectDeckDropTarget, this.props.connectCardDropTarget)(
-            <div>
+            <div className="deck">
                 <DeckHeader deck={this.props.deck} />
                 <CardList 
                     cards={selectCardsByIds(this.props.cards, this.props.deck.cardIds)}
@@ -85,7 +85,7 @@ function selectCardsByIds(allCards, cardIds = []) {
 
 
 export default compose(
-    DragSource(ItemTypes.DECKDeck, deckDragSource, connect => ({
+    DragSource(ItemTypes.DECK, deckDragSource, connect => ({
         connectDeckDragSource: connect.dragSource()
     })),
     DropTarget(ItemTypes.DECK, deckDropTarget, connect => ({

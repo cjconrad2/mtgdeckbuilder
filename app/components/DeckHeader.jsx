@@ -1,7 +1,7 @@
 import React from 'react';
 
 import connect from '../libs/connect';
-import DeckActions from '../actions/LaneActions';
+import DeckActions from '../actions/DeckActions';
 import Editable from './Editable';
 
 
@@ -27,6 +27,7 @@ class DeckHeader extends React.Component {
         });
     };
     editName = name => {
+        console.log('in edit name for deck', this.props.deck.id)
         DeckActions.update({
             id: this.props.deck.id,
             name,

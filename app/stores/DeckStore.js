@@ -18,6 +18,7 @@ export default class DeckStore {
     });
   }
   update(updatedDeck) {
+      console.log('in update!', updatedDeck)
     this.setState({
         decks: this.decks.map(deck => {
             if(deck.id === updatedDeck.id) {

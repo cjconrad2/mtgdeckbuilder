@@ -9,10 +9,12 @@ import Lanes from './Lanes';
 import CardBox from './CardBox'
 import Sets from './Sets'
 import Menu from './Menu'
+import DeckMat from './DeckMat'
 
 import LaneActions from '../actions/LaneActions';
 import CardActions from '../actions/CardActions';
 import SetActions from '../actions/SetActions';
+import DeckActions from '../actions/DeckActions';
 import MagicApi from '../Api/MagicApi';
 
 class App extends React.Component {
@@ -22,16 +24,16 @@ class App extends React.Component {
       const {selectedSet} = this.props;
       const {filteredCards} = this.props;
       const {cardSearchString} = this.props;
+      const {decks} = this.props;
       return (
         <div>
           <button className="add-lane" onClick={this.addLane}>+</button>
           <Menu 
             sets={sets} 
             selectedSet={selectedSet}
-            // TODO: THIS IS WHERE YOU SHOULD PICK UP. You added the map to make things work as is,
-            // but cards here should be and array of {uid, cardInfo}
-            cards={filteredCards.map(card => card.cardInfo)} 
+            cards={filteredCards} 
             cardSearchString={cardSearchString} />
+          <DeckMat decks={decks}/>
           <Lanes lanes={lanes} />
         </div>
       );
@@ -43,14 +45,15 @@ class App extends React.Component {
         key: id,
         name: '',
         editing: true
-    });
-  }
+      });
+    }
 }
 
 export default compose(
   DragDropContext(HTML5Backend),
   connect(
-    ({lanes, cards, filteredCards, cardSearchString, sets, selectedSet}) => ({lanes, cards, filteredCards, cardSearchString, sets, selectedSet}),
-    {LaneActions, CardActions, SetActions}
+    ({lanes, cards, filteredCards, cardSearchString, sets, selectedSet, decks}) => 
+    ({lanes, cards, filteredCards, cardSearchString, sets, selectedSet, decks}),
+    {LaneActions, CardActions, SetActions, DeckActions}
   )
 )(App)

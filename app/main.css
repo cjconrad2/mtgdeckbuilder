@@ -4,7 +4,25 @@ body {
   font-family: sans-serif;
 }
 
-.lane {
+.menu {
+  height: 100%;
+  width: 20em;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  overflow-x: hidden;
+  padding-top: 1em;
+  padding-left: 2em;
+  background-color: grey; /* Black */
+}
+
+.deck-mat {
+  margin-left: 20em;
+  padding-left: 2em;
+}
+
+.lane, .deck {
   display: inline-block;
 
   margin: 1em;
@@ -17,7 +35,7 @@ body {
   vertical-align: top;
 }
 
-.lane-header {
+.lane-header, .deck-header {
   overflow: auto;
 
   padding: 1em;
@@ -29,7 +47,7 @@ body {
   border-top-right-radius: 0.5em;
 }
 
-.lane-name {
+.lane-name, .deck-name {
   float: left;
 }
 
@@ -39,25 +57,25 @@ body {
   margin-right: 0.5em;
 }
 
-.lane-delete {
+.lane-delete, .deck-delete {
   float: right;
 
   margin-left: 0.5em;
 
   visibility: hidden;
 }
-.lane-header:hover .lane-delete {
+.lane-header:hover .lane-delete, .deck-header:hover .deck-delete {
   visibility: visible;
 }
 
-.add-lane, .lane-add-note button {
+.add-lane, .lane-add-note button, .add-deck {
   cursor: pointer;
 
   background-color: #fdfdfd;
   border: 1px solid #ccc;
 }
 
-.lane-delete button {
+.lane-delete button, .deck-delete button {
   padding: 0;
 
   cursor: pointer;
