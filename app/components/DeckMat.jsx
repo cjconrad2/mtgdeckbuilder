@@ -1,11 +1,12 @@
 import React from 'react'
 import uuid from 'uuid'
 
+import connect from '../libs/connect';
 import DeckActions from '../actions/DeckActions'
 
 import Deck from './Deck'
 
-export default class DeckMat extends React.Component {
+class DeckMat extends React.Component {
     render() {
         return (
             <div className='deck-mat'>
@@ -32,3 +33,7 @@ export default class DeckMat extends React.Component {
         });
     }
 }
+
+export default connect(
+    ({decks}) => ({decks})
+    , {DeckActions})(DeckMat)

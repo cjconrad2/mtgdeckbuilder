@@ -19,41 +19,20 @@ import MagicApi from '../Api/MagicApi';
 
 class App extends React.Component {
     render() {
-      const {lanes} = this.props;
-      const {sets} = this.props;
-      const {selectedSet} = this.props;
-      const {filteredCards} = this.props;
-      const {cardSearchString} = this.props;
-      const {decks} = this.props;
       return (
         <div>
-          <button className="add-lane" onClick={this.addLane}>+</button>
-          <Menu 
-            sets={sets} 
-            selectedSet={selectedSet}
-            cards={filteredCards} 
-            cardSearchString={cardSearchString} />
-          <DeckMat decks={decks}/>
-          <Lanes lanes={lanes} />
+          <Menu />
+          <DeckMat />
         </div>
       );
-    }
-    addLane = () => {
-      const id = uuid.v4();
-      LaneActions.create({
-        id: id,
-        key: id,
-        name: '',
-        editing: true
-      });
     }
 }
 
 export default compose(
   DragDropContext(HTML5Backend),
   connect(
-    ({lanes, cards, filteredCards, cardSearchString, sets, selectedSet, decks}) => 
-    ({lanes, cards, filteredCards, cardSearchString, sets, selectedSet, decks}),
-    {LaneActions, CardActions, SetActions, DeckActions}
+    ({lanes, cards, filteredCards, cardSearchString, sets, selectedSet}) => 
+    ({lanes, cards, filteredCards, cardSearchString, sets, selectedSet}),
+    {LaneActions, CardActions, SetActions}
   )
 )(App)
