@@ -11,7 +11,6 @@ import Sets from './Sets'
 import Menu from './Menu'
 import DeckMat from './DeckMat'
 
-import LaneActions from '../actions/LaneActions';
 import CardActions from '../actions/CardActions';
 import SetActions from '../actions/SetActions';
 import DeckActions from '../actions/DeckActions';
@@ -31,8 +30,8 @@ class App extends React.Component {
 export default compose(
   DragDropContext(HTML5Backend),
   connect(
-    ({lanes, cards, filteredCards, cardSearchString, sets, selectedSet}) => 
-    ({lanes, cards, filteredCards, cardSearchString, sets, selectedSet}),
-    {LaneActions, CardActions, SetActions}
+    ({cards, filteredCards, cardSearchString, sets, selectedSet}) => 
+    ({cards, filteredCards, cardSearchString, sets, selectedSet}),
+    {CardActions, SetActions}
   )
 )(App)

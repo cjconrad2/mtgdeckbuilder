@@ -14,6 +14,7 @@ class Deck extends React.Component {
         super(props)
     }
     render() {
+        console.log('deck props', this.props)
         return compose(this.props.connectDeckDragSource, this.props.connectDeckDropTarget, this.props.connectCardDropTarget)(
             <div className="deck">
                 <DeckHeader deck={this.props.deck} />
@@ -56,18 +57,18 @@ const deckDropTarget = {
 const cardDropTarget = {
     hover(targetProps, monitor) {
         const sourceProps = monitor.getItem();
-        const sourceId = sourceProps.id;
+        const sourceId = sourceProps.uId;
   
-        // If the target lane doesn't have notes,
-        // attach the note to it.
+        // If the target deck doesn't have cards,
+        // attach the card to it.
         //
-        // `attachToLane` performs necessarly
+        // `attachToDeck` performs necessarly
         // cleanup by default and it guarantees
-        // a note can belong only to a single lane
+        // a card can belong only to a single deck
         // at a time.
       if(!targetProps.deck.cardIds.length) {
-            DeckActions.attachToLane({
-                deckId: targetProps.card.id,
+            DeckActions.attachToDeck({
+                deckId: targetProps.deck.id,
                 cardId: sourceId
             });
       }
@@ -78,7 +79,7 @@ function selectCardsByIds(allCards, cardIds = []) {
     return cardIds.reduce((cards, id) =>
       // Concatenate possible matching ids to the result
       cards.concat(
-        allCards.filter(card => card.id === id)
+        allCards.filter(card => card.uId === id)
       )
     , []);
   }

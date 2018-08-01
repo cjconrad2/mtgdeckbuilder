@@ -61,14 +61,29 @@ export default class DeckStore {
     });
   }
   moveCard({sourceId, targetId}) {
+    console.log(`source: ${sourceId}, target: ${targetId}`);
     const decks = this.decks;
+    console.log('decks', decks)
     const sourceDeck = decks.filter(deck => deck.cardIds.includes(sourceId))[0];
+    console.log('sourcedeck', sourceDeck)
     const targetDeck = decks.filter(deck => deck.cardIds.includes(targetId))[0];
-    const sourceCardIndex = sourceDeck.cardIds.indexOf(sourceId);
+    console.log('targetdeck', targetDeck)
+    if(!sourceDeck && !targetDeck) {
+      // Moving card within the menu, do nothing
+      return;
+    }
+
     const targetCardIndex = targetDeck.cardIds.indexOf(targetId);
 
+    if(!sourceDeck) {
+      // Moving card from menu to deck
+      targetDeck.cardIds.splice(targetCardIndex, 0, sourceId);
+    }
+
+    const sourceCardIndex = sourceDeck.cardIds.indexOf(sourceId);
+
     if(sourceDeck === targetDeck) {
-      // move at once to avoid complications
+      // move within the same deck
       sourceDeck.cardIds = update(sourceDeck.cardIds, {
         $splice: [
           [sourceCardIndex, 1],
@@ -77,6 +92,7 @@ export default class DeckStore {
       });
     }
     else {
+      //Move from one deck to another
       // get rid of the source
       sourceDeck.cardIds.splice(sourceCardIndex, 1);
 
