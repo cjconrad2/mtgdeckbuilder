@@ -1,5 +1,7 @@
-import CardActions from '../actions/CardActions';
 import uuid from 'uuid';
+
+import CardActions from '../actions/CardActions';
+import MagicApi from '../Api/MagicApi'
 
 export default class CardStore {
     constructor() {
@@ -9,6 +11,9 @@ export default class CardStore {
       this.filteredCards = [];
       this.cardSearchString = '';
       this.selectedCards = [];
+      this.sets = [];
+      this.selectedSet = {code: 'UND', name: 'Choose Set'}
+      MagicApi.getSets();
     }
   
     receiveCards(responseBody) {
@@ -31,26 +36,18 @@ export default class CardStore {
         });
     }
 
-    selectCard(cardId, uId) {
-        const selectedCard = this.cards.filter(card => card.cardInfo.id === cardId)[0];
-        // Create a new uId for the matching card in the card list since the old id is in use
-        const newCards = this.cards.map(card => {
-            if(card.cardInfo.id === cardId) {
-                const newUId = uuid.v4();
-                return Object.assign({}, card.card, {uId: newUId, card: card.cardInfo});
-            }
-            return card
-        });
+    receiveCardSets(responseBody) {
+        console.log('in recieve sets')
         this.setState({
-            selectedCards: this.selectedCards.concat(selectedCard),
-            cards: newCards,
-            filteredCards: newCards.filter(card => card.card.name.includes(this.cardSearchString))
+            sets: responseBody.sets
         });
+        console.log(this.sets)
     }
 
-    deselectCard(uId) {
+    selectCardSet(code) {
         this.setState({
-            selectedCards: this.selectedCards.filter(card => card.uId !== uId)
+            selectedSet: this.sets.filter(set => set.code === code)[0]
         })
+        MagicApi.getCards(this.selectedSet.code);
     }
   }

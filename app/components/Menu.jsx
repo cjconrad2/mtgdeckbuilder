@@ -1,7 +1,6 @@
 import React from 'react';
 
 import CardActions from '../actions/CardActions';
-import SetActions from '../actions/SetActions';
 import MagicApi from '../Api/MagicApi';
 
 import CardBox from './CardBox'

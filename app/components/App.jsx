@@ -12,7 +12,6 @@ import Menu from './Menu'
 import DeckMat from './DeckMat'
 
 import CardActions from '../actions/CardActions';
-import SetActions from '../actions/SetActions';
 import DeckActions from '../actions/DeckActions';
 import MagicApi from '../Api/MagicApi';
 
@@ -32,6 +31,6 @@ export default compose(
   connect(
     ({cards, filteredCards, cardSearchString, sets, selectedSet}) => 
     ({cards, filteredCards, cardSearchString, sets, selectedSet}),
-    {CardActions, SetActions}
+    {CardActions}
   )
 )(App)

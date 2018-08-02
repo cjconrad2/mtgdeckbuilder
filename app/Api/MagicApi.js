@@ -1,5 +1,4 @@
 import CardActions from '../actions/CardActions'
-import SetActions from '../actions/SetActions'
 import request from 'superagent'
 
 module.exports = {
@@ -22,7 +21,7 @@ module.exports = {
             .end(function(err, response) {
                 if (err) return console.error(err);
                 console.log(response)
-                SetActions.receiveSets(response.body)
+                CardActions.receiveCardSets(response.body)
             });
     }
   };

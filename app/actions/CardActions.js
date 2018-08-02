@@ -1,5 +1,6 @@
 import alt from '../libs/alt';
 
 export default alt.generateActions(
-    'receiveCards', 'searchCards'
+    'receiveCards', 'searchCards', 
+    'receiveCardSets', 'selectCardSet'
 );
