@@ -1,7 +1,7 @@
 import React from 'react';
 
-import CardActions from '../actions/CardActions';
-import MagicApi from '../Api/MagicApi';
+import CardActions from '../../actions/CardActions';
+import MagicApi from '../../Api/MagicApi';
 
 import CardBox from './CardBox'
 import Sets from './Sets'

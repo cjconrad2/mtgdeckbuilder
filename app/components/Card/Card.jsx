@@ -1,7 +1,7 @@
 import React from 'react'
 import {compose} from 'redux'
 import {DragSource, DropTarget} from 'react-dnd';
-import ItemTypes from '../constants/itemTypes';
+import ItemTypes from '../../constants/itemTypes';
 
 class Card extends React.Component {
     render() {

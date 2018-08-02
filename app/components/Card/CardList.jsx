@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Card from './Card'
-import DeckActions from '../actions/DeckActions'
+import DeckActions from '../../actions/DeckActions'
 
 export default class CardList extends React.Component {
     render() {

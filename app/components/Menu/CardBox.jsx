@@ -1,8 +1,8 @@
 import React from 'react';
 
-import connect from '../libs/connect';
-import CardList from './CardList';
-import CardActions from '../actions/CardActions';
+import connect from '../../libs/connect';
+import CardList from '../Card/CardList';
+import CardActions from '../../actions/CardActions';
 
 class CardBox extends React.Component {
     render() {

@@ -3,10 +3,10 @@ import {compose} from 'redux';
 import {DragSource, DropTarget} from 'react-dnd';
 import uuid from 'uuid';
 
-import ItemTypes from '../constants/itemTypes';
-import connect from '../libs/connect';
-import DeckActions from '../actions/DeckActions';
-import CardList from './CardList';
+import ItemTypes from '../../constants/itemTypes';
+import connect from '../../libs/connect';
+import DeckActions from '../../actions/DeckActions';
+import CardList from '../Card/CardList';
 import DeckHeader from './DeckHeader';
 
 class Deck extends React.Component {

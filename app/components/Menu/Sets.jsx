@@ -1,7 +1,7 @@
 import React from 'react';
 
-import CardActions from '../actions/CardActions';
-import connect from '../libs/connect';
+import CardActions from '../../actions/CardActions';
+import connect from '../../libs/connect';
 
 class Sets extends React.Component {
     render() {

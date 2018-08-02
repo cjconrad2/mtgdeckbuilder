@@ -5,11 +5,8 @@ import {DragDropContext} from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 
 import connect from '../libs/connect';
-import Lanes from './Lanes';
-import CardBox from './CardBox'
-import Sets from './Sets'
-import Menu from './Menu'
-import DeckMat from './DeckMat'
+import Menu from './Menu/Menu'
+import DeckMat from './Deck/DeckMat'
 
 import CardActions from '../actions/CardActions';
 import DeckActions from '../actions/DeckActions';

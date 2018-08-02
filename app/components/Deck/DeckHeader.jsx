@@ -1,8 +1,8 @@
 import React from 'react';
 
-import connect from '../libs/connect';
-import DeckActions from '../actions/DeckActions';
-import Editable from './Editable';
+import connect from '../../libs/connect';
+import DeckActions from '../../actions/DeckActions';
+import Editable from '../Common/Editable';
 
 
 class DeckHeader extends React.Component {

@@ -1,8 +1,8 @@
 import React from 'react'
 import uuid from 'uuid'
 
-import connect from '../libs/connect';
-import DeckActions from '../actions/DeckActions'
+import connect from '../../libs/connect';
+import DeckActions from '../../actions/DeckActions'
 
 import Deck from './Deck'
 
