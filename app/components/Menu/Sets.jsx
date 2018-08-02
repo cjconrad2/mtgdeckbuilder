@@ -5,7 +5,7 @@ import connect from '../../libs/connect';
 
 class Sets extends React.Component {
     render() {
-        console.log('sets props', this.props)
+        //console.log('sets props', this.props)
         return (
             <div className="set-wrapper">
                 <select value={this.props.selectedSet.code} onChange={this.handleSelectSet}>

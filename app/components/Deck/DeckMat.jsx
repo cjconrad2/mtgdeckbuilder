@@ -8,7 +8,7 @@ import Deck from './Deck'
 
 class DeckMat extends React.Component {
     render() {
-        console.log('deckMat props', this.props)
+        //console.log('deckMat props', this.props)
         return (
             <div className='deck-mat'>
                 <div className='deck-mat-buttons'>

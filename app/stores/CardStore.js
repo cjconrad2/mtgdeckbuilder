@@ -17,16 +17,11 @@ export default class CardStore {
     }
   
     receiveCards(responseBody) {
-        console.log('in recieve cards')
-        const cards = responseBody.cards.map(card => {
-            const uId = uuid.v4();
-            return {uId: uId, cardInfo: card}
-        });
+        const cards = responseBody.cards.map(card => {return {uId: undefined, cardInfo: card}})
         this.setState({
             cards: cards,
             filteredCards: cards.filter(card => card.cardInfo.name.includes(this.cardSearchString))
         });
-        console.log(this.cards)
     }
 
     searchCards(searchString) {
@@ -37,11 +32,9 @@ export default class CardStore {
     }
 
     receiveCardSets(responseBody) {
-        console.log('in recieve sets')
         this.setState({
             sets: responseBody.sets
         });
-        console.log(this.sets)
     }
 
     selectCardSet(code) {

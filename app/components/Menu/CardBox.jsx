@@ -6,11 +6,13 @@ import CardActions from '../../actions/CardActions';
 
 class CardBox extends React.Component {
     render() {
-        console.log(this.props)
+        //console.log(this.props)
         return (
             <ul className="card-box">
                 <input className="card-search" value={this.props.cardSearchString} onChange={this.handleCardSearchChange}/>
-                <CardList cards={this.props.filteredCards}/>
+                <CardList 
+                    fromMenu={true} 
+                    cards={this.props.filteredCards}/>
             </ul>
           );
     }

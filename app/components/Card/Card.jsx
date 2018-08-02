@@ -1,13 +1,16 @@
 import React from 'react'
 import {compose} from 'redux'
 import {DragSource, DropTarget} from 'react-dnd';
+
 import ItemTypes from '../../constants/itemTypes';
+import DeckActions from '../../actions/DeckActions'
 
 class Card extends React.Component {
     render() {
+        //console.log('card props', this.props)
         return compose(this.props.connectDragSource, this.props.connectDropTarget)(
             <div className="card">
-                <img src={this.props.imageUrl} />
+                <img src={this.props.card.cardInfo.imageUrl} />
             </div>
         );
     }
@@ -17,21 +20,30 @@ const cardSource = {
     beginDrag(props) {
         console.log('begin dragging card', props);
         return {
-            uId: props.uId
+            card: props.card,
+            fromMenu: props.fromMenu
         };
     }
 };
 
 const cardTarget = {
-    hover(targetProps, monitor) {
-        const targetId = targetProps.uId;
+    drop(targetProps, monitor) {
+        const targetCardId = targetProps.card.uId;
         const sourceProps = monitor.getItem();
-        const sourceId = sourceProps.uId;
+        const sourceCardId = sourceProps.card.uId;
+        const sourceFromMenu = sourceProps.fromMenu
 
         console.log('dragging card', sourceProps, targetProps);
+        console.log('sourceId', sourceCardId)
+        console.log('targetId', targetCardId)
   
-        if(sourceId !== targetId) {
-            targetProps.onMove({sourceId, targetId});
+        if(sourceCardId && targetCardId && sourceCardId !== targetCardId) {
+            targetProps.onMove({sourceCardId, targetCardId});
+        }
+        else if(targetCardId) {
+            console.log('about to attachToDeckBasedOnCard. targetId: ', targetCardId)
+            const card = sourceProps.card
+            DeckActions.attachToDeckBasedOnCard({targetCardId, card, fromMenu: sourceFromMenu})
         }
     }
 };

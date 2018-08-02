@@ -2,6 +2,6 @@ import alt from '../libs/alt';
 
 export default alt.generateActions(
     'create', 'update', 'delete',
-    'attachToDeck', 'detachFromDeck',
+    'attachToDeck', 'detachFromDeck', 'attachToDeckBasedOnCard',
     'moveCard', 'moveDeck'
 );

@@ -14,12 +14,13 @@ class Deck extends React.Component {
         super(props)
     }
     render() {
-        console.log('deck props', this.props)
+        //console.log('deck props', this.props)
         return compose(this.props.connectDeckDragSource, this.props.connectDeckDropTarget, this.props.connectCardDropTarget)(
             <div className="deck">
                 <DeckHeader deck={this.props.deck} />
                 <CardList 
-                    cards={selectCardsByIds(this.props.cards, this.props.deck.cardIds)}
+                    fromMenu={false}
+                    cards={this.props.deck.cards}
                     onDelete={this.deleteCard} />
             </div>
           );
@@ -55,9 +56,10 @@ const deckDropTarget = {
 };
 
 const cardDropTarget = {
-    hover(targetProps, monitor) {
+    drop(targetProps, monitor) {
         const sourceProps = monitor.getItem();
-        const sourceId = sourceProps.uId;
+        const sourceCard = sourceProps.card;
+        const sourceFromMenu = sourceProps.fromMenu;
   
         // If the target deck doesn't have cards,
         // attach the card to it.
@@ -66,23 +68,15 @@ const cardDropTarget = {
         // cleanup by default and it guarantees
         // a card can belong only to a single deck
         // at a time.
-      if(!targetProps.deck.cardIds.length) {
+      if(!targetProps.deck.cards.length) {
             DeckActions.attachToDeck({
                 deckId: targetProps.deck.id,
-                cardId: sourceId
+                card: sourceCard,
+                fromMenu: sourceFromMenu
             });
       }
     }
 };
-
-function selectCardsByIds(allCards, cardIds = []) {
-    return cardIds.reduce((cards, id) =>
-      // Concatenate possible matching ids to the result
-      cards.concat(
-        allCards.filter(card => card.uId === id)
-      )
-    , []);
-  }
 
 
 export default compose(
