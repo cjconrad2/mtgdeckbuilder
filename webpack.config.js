@@ -39,7 +39,7 @@ const common = merge(
     }
   },
   parts.indexTemplate({
-    title: 'Kanban demo',
+    title: 'MTG Deck Builder',
     appMountId: 'app'
   }),
   parts.loadJSX(PATHS.app),
