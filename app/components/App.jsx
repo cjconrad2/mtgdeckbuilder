@@ -5,8 +5,9 @@ import {DragDropContext} from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 
 import connect from '../libs/connect';
-import Menu from './Menu/Menu'
-import DeckMat from './Deck/DeckMat'
+import Menu from './Menu/Menu';
+import DeckMat from './Deck/DeckMat';
+import AnalyticPanel from './Analytics/AnalyticsPanel';
 
 import CardActions from '../actions/CardActions';
 import DeckActions from '../actions/DeckActions';
@@ -18,6 +19,7 @@ class App extends React.Component {
         <div>
           <Menu />
           <DeckMat />
+          <AnalyticPanel />
         </div>
       );
     }

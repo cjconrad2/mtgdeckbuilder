@@ -8,6 +8,7 @@ export default class DeckStore {
     this.bindActions(DeckActions);
 
     this.decks = [];
+    this.selectedDeck = ''
   }
   create(deck) {
     // If `cardIds` aren't provided for any reason,
@@ -129,5 +130,10 @@ export default class DeckStore {
           });
     }
     this.setState({decks})
+  }
+  selectDeck(deckId) {
+    this.setState({
+      selectedDeck: deckId
+    });
   }
 }
