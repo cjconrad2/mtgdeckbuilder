@@ -127,7 +127,21 @@ exports.setupCSS = function(paths) {
         {
           test: /\.css$/,
           loaders: ['style', 'css'],
-          include: paths
+          //include: paths
+        }
+      ]
+    }
+  };
+}
+
+exports.setupFonts =function() {
+  return {
+    module: {
+      loaders: [
+        {
+          test: /.(woff|woff2|eot|ttf)$/,
+          loaders: ['url'],
+          //include: paths
         }
       ]
     }
