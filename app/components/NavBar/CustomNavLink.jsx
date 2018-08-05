@@ -26,8 +26,7 @@ const LinkButton = (props) => {
 }
 
 LinkButton.propTypes = {
-  to: PropTypes.string.isRequired,
-  children: PropTypes.node.isRequired
+  to: PropTypes.string.isRequired
 }
 
 export default withRouter(LinkButton)

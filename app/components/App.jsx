@@ -11,6 +11,7 @@ import CustomNavBar from './NavBar/CustomNavBar';
 
 require('@blueprintjs/core/lib/css/blueprint.css')
 require('@blueprintjs/icons/lib/css/blueprint-icons.css')
+require('@blueprintjs/select/lib/css/blueprint-select.css')
 require('normalize.css/normalize.css')
 
 export default class App extends React.Component {

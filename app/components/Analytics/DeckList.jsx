@@ -1,4 +1,4 @@
-import React from 'React';
+import React from 'react';
 
 import connect from '../../libs/connect';
 import DeckActions from '../../actions/DeckActions'
