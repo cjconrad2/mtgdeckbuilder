@@ -5,12 +5,19 @@ import {DragSource, DropTarget} from 'react-dnd';
 import ItemTypes from '../../constants/itemTypes';
 import DeckActions from '../../actions/DeckActions'
 
-class Card extends React.Component {
+import { Button, Card, Elevation, H5 } from '@blueprintjs/core';
+
+class MagicCard extends React.Component {
     render() {
-        //console.log('card props', this.props)
+        const {card} = this.props;
         return compose(this.props.connectDragSource, this.props.connectDropTarget)(
-            <div className="card">
-                <img src={this.props.card.cardInfo.imageUrl} />
+            <div>
+                <Card interactive={true} elevation={Elevation.TWO} >
+                    <H5>{card.cardInfo.name}</H5>
+                    <div className="card">
+                        <img src={this.props.card.cardInfo.imageUrl} />
+                    </div>
+                </Card>
             </div>
         );
     }
@@ -55,4 +62,4 @@ export default compose(
     DropTarget(ItemTypes.CARD, cardTarget, connect => ({
         connectDropTarget: connect.dropTarget()
     }))
-)(Card)
+)(MagicCard)

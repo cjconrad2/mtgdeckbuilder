@@ -4,6 +4,7 @@ import { Select } from '@blueprintjs/select';
 
 import connect from '../../libs/connect';
 import CardActions from '../../actions/CardActions'
+import CardBox from '../Menu/CardBox';
 
 class CardsPage extends React.Component {
     render() {
@@ -28,6 +29,7 @@ class CardsPage extends React.Component {
                         rightIcon="caret-down"
                         text={selectedSet ? `${selectedSet.name}` : 'No Selection'}/>
                 </Select>
+                <CardBox />
             </div>
         )
     }

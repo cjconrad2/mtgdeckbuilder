@@ -1,6 +1,12 @@
 import React from 'react';
 import { BrowserRouter, Link, Route, Redirect, withRouter } from 'react-router-dom'
 
+import {compose} from 'redux';
+import {DragDropContext} from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
+
+import connect from '../libs/connect';
+import CardActions from '../actions/CardActions'
 import OldApp from './OldApp';
 import CollectionsPage from './Collections/CollectionsPage';
 import CardsPage from './Card/CardsPage';
@@ -14,7 +20,7 @@ require('@blueprintjs/icons/lib/css/blueprint-icons.css')
 require('@blueprintjs/select/lib/css/blueprint-select.css')
 require('normalize.css/normalize.css')
 
-export default class App extends React.Component {
+class App extends React.Component {
     constructor(props) {
       super(props);
     }
@@ -34,3 +40,12 @@ export default class App extends React.Component {
       );
     }
 }
+
+export default compose(
+  DragDropContext(HTML5Backend),
+  connect(
+    ({cards, filteredCards, cardSearchString, sets, selectedSet}) => 
+    ({cards, filteredCards, cardSearchString, sets, selectedSet}),
+    {CardActions}
+  )
+)(App)
