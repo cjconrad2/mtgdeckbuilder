@@ -37,10 +37,20 @@ export default class CardStore {
         });
     }
 
-    selectCardSet(code) {
+    selectCardSet(selectedSet) {
+        console.log('in selectCardSet', selectedSet)
         this.setState({
-            selectedSet: this.sets.filter(set => set.code === code)[0]
+            selectedSet: this.sets.filter(set => set.code === selectedSet.code)[0]
         })
         MagicApi.getCards(this.selectedSet.code);
+    }
+
+    handleQueryChange(query) {
+        console.log('in card store handle querychange', query, this.sets)
+        const activeSet = this.sets.filter(set => set.name.toLowerCase().indexOf(query.toLowerCase()) >= 0)[0]
+        console.log('active set', activeSet)
+        this.setState({
+            activeSet
+        });
     }
   }

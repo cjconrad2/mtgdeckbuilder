@@ -54,6 +54,8 @@
     "webpack-validator": "^2.1.1"
   },
   "dependencies": {
+    "@blueprintjs/core": "^3.2.0",
+    "@blueprintjs/select": "^3.1.0",
     "alt": "^0.18.6",
     "alt-container": "^1.1.1",
     "alt-utils": "^2.0.0",
@@ -66,8 +68,10 @@
     "react-dnd-html5-backend": "^3.0.2",
     "react-dom": "^15.1.0",
     "react-fusioncharts": "^1.0.5",
+    "react-router-dom": "^4.3.1",
     "recharts": "^1.1.0",
     "redux": "^4.0.0",
-    "superagent": "^3.8.3"
+    "superagent": "^3.8.3",
+    "url-loader": "^1.0.1"
   }
 }

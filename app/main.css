@@ -1,5 +1,5 @@
 body {
-  background-color: cornsilk;
+  /*background-color: cornsilk;*/
 
   font-family: sans-serif;
 }
@@ -35,7 +35,7 @@ body {
   padding-left: 2em;
 }
 
-.lane, .deck {
+.deck {
   display: inline-block;
 
   margin: 1em;
@@ -48,7 +48,7 @@ body {
   vertical-align: top;
 }
 
-.lane-header, .deck-header {
+.deck-header {
   overflow: auto;
 
   padding: 1em;
@@ -60,35 +60,30 @@ body {
   border-top-right-radius: 0.5em;
 }
 
-.lane-name, .deck-name {
+.deck-name {
   float: left;
 }
 
-.lane-add-note {
-  float: left;
 
-  margin-right: 0.5em;
-}
-
-.lane-delete, .deck-delete {
+.deck-delete {
   float: right;
 
   margin-left: 0.5em;
 
   visibility: hidden;
 }
-.lane-header:hover .lane-delete, .deck-header:hover .deck-delete {
+.deck-header:hover .deck-delete {
   visibility: visible;
 }
 
-.add-lane, .lane-add-note button, .add-deck {
+.add-deck {
   cursor: pointer;
 
   background-color: #fdfdfd;
   border: 1px solid #ccc;
 }
 
-.lane-delete button, .deck-delete button {
+.deck-delete button {
   padding: 0;
 
   cursor: pointer;
@@ -117,67 +112,18 @@ body {
   font-size: 10pt;
 }
 
-.notes {
+/* .card-box {
   margin: 0.5em;
   padding-left: 0;
 
   max-width: 10em;
-  list-style: none;
-}
-
-.note {
-  overflow: auto;
-
-  margin-bottom: 0.5em;
-  padding: 0.5em;
-
-  background-color: #fdfdfd;
-  box-shadow: 0 0 0.3em .03em rgba(0,0,0,.3);
-}
-.note:hover {
-  box-shadow: 0 0 0.3em .03em rgba(0,0,0,.7);
-
-  transition: .6s;
-}
-
-.note .value {
-  /* force to use inline-block so that it gets minimum height */
-  display: inline-block;
-}
-
-.note .editable {
-  float: left;
-  max-width: 9.5em
-}
-
-.note .delete {
-  float: right;
-
-  padding: 0;
-
-  background-color: #fdfdfd;
-  border: none;
-
-  cursor: pointer;
-
-  visibility: hidden;
-}
-.note:hover .delete {
-  visibility: visible;
-}
-
-.card-box {
-  margin: 0.5em;
-  padding-left: 0;
-
-  max-width: 10em;
-}
+} */
 
 .card-list {
   padding-top: 1em;
   list-style: none;
 }
 
-.card {
+/* .card {
   padding-bottom: 1em;
-}
+} */

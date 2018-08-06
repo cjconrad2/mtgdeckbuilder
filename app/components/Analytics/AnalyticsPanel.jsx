@@ -1,4 +1,4 @@
-import React from 'React';
+import React from 'react';
 import DeckList from './DeckList';
 import DeckStats from './DeckStats';
 
