@@ -93,37 +93,65 @@ body {
   border: 0;
 }
 
-.add-card-wrapper:hover {
-  overflow: auto;
-
-  margin: 0.5em;
-  padding-left: 0.5em;
-  padding-right: 0.5em;
-
-  background-color: #fdfdfd;
-  box-shadow: 0 0 0.3em .03em rgba(0,0,0,.3);
-
-  transition: .6s
-}
-
-.add-card {
-  text-align: center;
-  margin: 1em; 
-  font-size: 10pt;
-}
-
-/* .card-box {
-  margin: 0.5em;
-  padding-left: 0;
-
-  max-width: 10em;
-} */
-
 .card-list {
   padding-top: 1em;
   list-style: none;
+  max-width: 60%;
 }
 
-/* .card {
+.menu-section {
+  height: 100%;
+  width: 30em;
+  position: fixed;
+  z-index: 1;
+  top: 3.5em;
+  left: 0;
+  overflow-x: hidden;
+  padding-top: 1em;
+  padding-left: 2em;
+  background: #E1E8ED;
+} 
+
+.selector-section {
+  padding-top: 1em;
+}
+
+.selector-with-label {
   padding-bottom: 1em;
-} */
+}
+
+.selector-label {
+  border: 1px grey !important;
+  cursor: default !important;
+  color: black !important;
+  width: 5em;
+  font-weight: bold;
+  background: #A7B6C2 !important;
+}
+
+.card-section {
+  padding-left: 30em;
+}
+
+.magic-card {
+  padding-top: 1em;
+}
+
+.card-image {
+  text-align: right;
+}
+
+.card-header-more {
+  float: right;
+}
+
+.card-info {
+  vertical-align: top;
+  width: 40em;
+}
+
+.card-property {
+  padding-top: 1em;
+}
+
+

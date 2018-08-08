@@ -8,16 +8,14 @@ export default class CardList extends React.Component {
     render() {
         //console.log(this.props)
         return (
-            <ul className="card-list">
+            <div className="card-list">
                 {this.props.cards.map(card =>
-                    <li key={uuid.v4()}>
-                        <MagicCard
+                        <MagicCard key={uuid.v4()}
                             fromMenu={this.props.fromMenu}
                             onMove={DeckActions.moveCard}
                             card={card} />
-                    </li>
                 )}
-            </ul>
+            </div>
           );
     }
 }

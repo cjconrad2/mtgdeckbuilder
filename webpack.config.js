@@ -75,7 +75,8 @@ switch(TARGET) {
         entries: ['react', 'react-dom']
       }),
       parts.minify(),
-      parts.extractCSS(PATHS.style)
+      parts.setupCSS(PATHS.style),
+      parts.setupFonts(),
     );
     break;
   case 'test':

@@ -12,8 +12,11 @@ export default class CardStore {
       this.cardSearchString = '';
       this.selectedCards = [];
       this.sets = [];
-      this.selectedSet = {code: 'UND', name: 'Choose Set'}
+      this.types = [];
+      this.subtypes = [];
       MagicApi.getSets();
+      MagicApi.getTypes();
+      MagicApi.getSubtypes();
     }
   
     receiveCards(responseBody) {
@@ -38,19 +41,42 @@ export default class CardStore {
     }
 
     selectCardSet(selectedSet) {
-        console.log('in selectCardSet', selectedSet)
         this.setState({
             selectedSet: this.sets.filter(set => set.code === selectedSet.code)[0]
-        })
-        MagicApi.getCards(this.selectedSet.code);
+        });
+        this.fireMagicApiGetCards()
     }
 
-    handleQueryChange(query) {
-        console.log('in card store handle querychange', query, this.sets)
-        const activeSet = this.sets.filter(set => set.name.toLowerCase().indexOf(query.toLowerCase()) >= 0)[0]
-        console.log('active set', activeSet)
+    receiveTypes(responseBody) {
         this.setState({
-            activeSet
+            types: responseBody.types
         });
+    }
+
+    selectCardType(selectedType) {
+        this.setState({
+            selectedType: selectedType
+        });
+        this.fireMagicApiGetCards()
+    }
+
+    receiveSubtypes(responseBody) {
+        this.setState({
+            subtypes: responseBody.subtypes
+        });
+    }
+
+    selectCardSubtype(selectedSubtype) {
+        this.setState({
+            selectedSubtype: selectedSubtype
+        });
+        this.fireMagicApiGetCards()
+    }
+
+    fireMagicApiGetCards() {
+        const setCode = this.selectedSet ? this.selectedSet.code : undefined;
+        const type = this.selectedType ? this.selectedType : undefined;
+        const subtype = this.selectedSubtype ? this.selectedSubtype : undefined
+        MagicApi.getCards({setCode, type, subtype});
     }
   }

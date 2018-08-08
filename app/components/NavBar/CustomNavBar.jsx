@@ -6,7 +6,7 @@ import CustomNavLink from './CustomNavLink';
 export default class CustomNavBar extends React.Component {
     render() {
         return (
-            <Navbar>
+            <Navbar fixedToTop={true}>
                 <Navbar.Group align={Alignment.LEFT}>
                     <Navbar.Heading>MTG Deck Builder</Navbar.Heading>
                     <Navbar.Divider />

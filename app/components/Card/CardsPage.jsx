@@ -1,67 +1,53 @@
 import React from 'react';
-import { Button, MenuItem } from '@blueprintjs/core';
-import { Select } from '@blueprintjs/select';
+import { H1, FormGroup, ControlGroup, Button, Icon } from '@blueprintjs/core';
 
 import connect from '../../libs/connect';
-import CardActions from '../../actions/CardActions'
+import CardActions from '../../actions/CardActions';
+import SetSelector from '../Selectors/SetSelector';
+import TypeSelector from '../Selectors/TypeSelector';
+import SubtypeSelector from '../Selectors/SubtypeSelector';
 import CardBox from '../Menu/CardBox';
 
 class CardsPage extends React.Component {
     render() {
-        const {selectedSet} = this.props;
-        console.log(this.props)
+        const {selectedSet, sets, types, selectedType, subtypes, selectedSubtype} = this.props;
         return (
             <div>
-                <div>Hello Card World</div>
-                <Select
-                    items={this.props.sets}
-
-                    itemRenderer={this.renderItems}
-                    itemPredicate={this.itemPredicate}
-                    noResults={<MenuItem disabled={true} text="No results." />}
-                    onItemSelect={this.handleItemSelect}
-                    resetOnClose={true}
-                    onQueryChange={this.handleQueryChange}
-                    activeItem={this.props.activeSet}
-                >
-                    <Button 
-                        icon="film" 
-                        rightIcon="caret-down"
-                        text={selectedSet ? `${selectedSet.name}` : 'No Selection'}/>
-                </Select>
-                <CardBox />
+                <div className="menu-section">
+                    <H1 className='page-header'>Cards</H1>
+                    <div className='selector-section'>
+                        <ControlGroup className="selector-with-label" fill={false}>
+                            <Button disabled={true} className="selector-label">Set</Button>
+                            <SetSelector className="selector" sets={sets} selectedSet={selectedSet} handleSetSelect={this.handleSetSelect}/>
+                        </ControlGroup>
+                        <ControlGroup className="selector-with-label">
+                            <Button disabled={true} className="selector-label">Type</Button>
+                            <TypeSelector className="selector" types={types} selectedType={selectedType} handleTypeSelect={this.handleTypeSelect}/>
+                        </ControlGroup>
+                        <ControlGroup className="selector-with-label">
+                            <Button disabled={true} className="selector-label">Subtype</Button>
+                            <SubtypeSelector className="selector" subtypes={subtypes} selectedSubtype={selectedSubtype} handleSubtypeSelect={this.handleSubtypeSelect}/>
+                        </ControlGroup>
+                    </div>
+                </div>
+                <div className="card-section">
+                    <CardBox/>
+                </div>
             </div>
         )
     }
-    renderItems = (set, { handleClick, modifiers, query }) => {
-        if (!modifiers.matchesPredicate) {
-            return null;
-        }
-        const active = this.props.activeSet && this.props.activeSet.code === set.code;
-        return (
-            <MenuItem
-                active={active}
-                disabled={modifiers.disabled} 
-                label={set.code}
-                key={set.code}
-                onClick={handleClick}
-                text={set.name}
-            />
-        );
-    }
-    itemPredicate = (query, set) => {
-        return set.name.toLowerCase().indexOf(query.toLowerCase()) >= 0;
-    }
-    handleItemSelect = (selectedSet) => {
-        console.log('in handleItemSelect')
+    handleSetSelect = (selectedSet) => {
         CardActions.selectCardSet(selectedSet)
     }
-    handleQueryChange = (query) => {
-        console.log('in handleQueryChange')
-        CardActions.handleQueryChange(query)
+    handleTypeSelect = (selectedType) => {
+        CardActions.selectCardType(selectedType)
+    }
+    handleSubtypeSelect = (selectedSubtype) => {
+        CardActions.selectCardSubtype(selectedSubtype)
     }
 }
 
 export default connect(
-    ({sets, selectedSet, activeSet}) => ({sets, selectedSet, activeSet})
+    ({sets, selectedSet, types, selectedType, subtypes, selectedSubtype}) => 
+    ({sets, selectedSet, types, selectedType, subtypes, selectedSubtype})
     , {CardActions})(CardsPage)

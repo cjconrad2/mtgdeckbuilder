@@ -4,22 +4,69 @@ import {DragSource, DropTarget} from 'react-dnd';
 
 import ItemTypes from '../../constants/itemTypes';
 import DeckActions from '../../actions/DeckActions'
+import CardOptionsMenu from './CardOptionsMenu'
 
-import { Button, Card, Elevation, H5 } from '@blueprintjs/core';
+import { Button, Card, Elevation, H5, H3, Collapse, Icon, Popover, Position } from '@blueprintjs/core';
 
 class MagicCard extends React.Component {
+    state = {
+        isOpen: true
+    }
     render() {
         const {card} = this.props;
+        const {isOpen} = this.state;
         return compose(this.props.connectDragSource, this.props.connectDropTarget)(
-            <div>
-                <Card interactive={true} elevation={Elevation.TWO} >
-                    <H5>{card.cardInfo.name}</H5>
-                    <div className="card">
-                        <img src={this.props.card.cardInfo.imageUrl} />
+            <div className="magic-card">
+                <Card interactive={true} elevation={Elevation.TWO} onClick={this.handleCardClick}>
+                    <div className="card-header">
+                        <H3>{card.cardInfo.name}
+                            <Popover className="card-header-more" content={<CardOptionsMenu />} position={Position.RIGHT_TOP}>
+                                <Icon icon="more"/>
+                            </Popover>
+                        </H3>
                     </div>
+                    <Collapse isOpen={isOpen}>
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div className="card-info">
+                                            <div className="card-property">
+                                                <b>Type: </b><span>{card.cardInfo.type}</span>
+                                            </div>
+                                            <div className="card-property">
+                                                    <b>{card.cardInfo.colors && card.cardInfo.colors.length > 1 ? 'Colors: ' : 'Color: '}</b>
+                                                    <span>{card.cardInfo.colors ? card.cardInfo.colors.join(', ') : 'Colorless'}</span>
+                                            </div>
+                                            <div className="card-property">
+                                                <b>Type: </b><span>{card.cardInfo.type}</span>
+                                            </div>
+                                            <div className="card-property">
+                                                <b>Type: </b><span>{card.cardInfo.type}</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div className="card-image">
+                                            <img src={this.props.card.cardInfo.imageUrl} />
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </Collapse>
                 </Card>
             </div>
         );
+    }
+    handleCardClick = (e) => {
+        e.persist();
+        if (e.target.attributes['data-icon'] && e.target.attributes['data-icon'].value === 'more') {
+            return;
+        }
+        this.setState({
+            isOpen: !this.state.isOpen
+        })
     }
 }
 
