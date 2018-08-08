@@ -4,8 +4,7 @@ import { H1, FormGroup, ControlGroup, Button, Icon } from '@blueprintjs/core';
 import connect from '../../libs/connect';
 import CardActions from '../../actions/CardActions';
 import SetSelector from '../Selectors/SetSelector';
-import TypeSelector from '../Selectors/TypeSelector';
-import SubtypeSelector from '../Selectors/SubtypeSelector';
+import BasicSelector from '../Selectors/BasicSelector';
 import CardBox from '../Menu/CardBox';
 
 class CardsPage extends React.Component {
@@ -22,11 +21,21 @@ class CardsPage extends React.Component {
                         </ControlGroup>
                         <ControlGroup className="selector-with-label">
                             <Button disabled={true} className="selector-label">Type</Button>
-                            <TypeSelector className="selector" types={types} selectedType={selectedType} handleTypeSelect={this.handleTypeSelect}/>
+                            <BasicSelector 
+                                className="selector" 
+                                items={types} 
+                                selectedItem={selectedType} 
+                                handleItemSelect={this.handleTypeSelect} 
+                                icon="filter"/>
                         </ControlGroup>
                         <ControlGroup className="selector-with-label">
                             <Button disabled={true} className="selector-label">Subtype</Button>
-                            <SubtypeSelector className="selector" subtypes={subtypes} selectedSubtype={selectedSubtype} handleSubtypeSelect={this.handleSubtypeSelect}/>
+                            <BasicSelector 
+                                className="selector" 
+                                items={subtypes} 
+                                selectedItem={selectedSubtype} 
+                                handleItemSelect={this.handleSubtypeSelect}
+                                icon="filter"/>
                         </ControlGroup>
                     </div>
                 </div>

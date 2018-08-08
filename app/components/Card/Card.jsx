@@ -5,19 +5,16 @@ import {DragSource, DropTarget} from 'react-dnd';
 import ItemTypes from '../../constants/itemTypes';
 import DeckActions from '../../actions/DeckActions'
 import CardOptionsMenu from './CardOptionsMenu'
+import CardRulings from './CardRulings';
 
 import { Button, Card, Elevation, H5, H3, Collapse, Icon, Popover, Position } from '@blueprintjs/core';
 
 class MagicCard extends React.Component {
-    state = {
-        isOpen: true
-    }
     render() {
         const {card} = this.props;
-        const {isOpen} = this.state;
         return compose(this.props.connectDragSource, this.props.connectDropTarget)(
             <div className="magic-card">
-                <Card interactive={true} elevation={Elevation.TWO} onClick={this.handleCardClick}>
+                <Card elevation={Elevation.TWO}>
                     <div className="card-header">
                         <H3>{card.cardInfo.name}
                             <Popover className="card-header-more" content={<CardOptionsMenu />} position={Position.RIGHT_TOP}>
@@ -25,12 +22,15 @@ class MagicCard extends React.Component {
                             </Popover>
                         </H3>
                     </div>
-                    <Collapse isOpen={isOpen}>
+                    <div className="card-body">
                         <table>
                             <tbody>
                                 <tr>
-                                    <td>
+                                    <td className="card-td-top">
                                         <div className="card-info">
+                                            <div className="card-property">
+                                                <b>Set: </b><span>{card.cardInfo.setName}</span>
+                                            </div>
                                             <div className="card-property">
                                                 <b>Type: </b><span>{card.cardInfo.type}</span>
                                             </div>
@@ -39,12 +39,10 @@ class MagicCard extends React.Component {
                                                     <span>{card.cardInfo.colors ? card.cardInfo.colors.join(', ') : 'Colorless'}</span>
                                             </div>
                                             <div className="card-property">
-                                                <b>Type: </b><span>{card.cardInfo.type}</span>
-                                            </div>
-                                            <div className="card-property">
-                                                <b>Type: </b><span>{card.cardInfo.type}</span>
+                                                <b>Rarity: </b><span>{card.cardInfo.rarity}</span>
                                             </div>
                                         </div>
+                                        {card.cardInfo.rulings && <CardRulings rulings={card.cardInfo.rulings}/>}
                                     </td>
                                     <td>
                                         <div className="card-image">
@@ -54,19 +52,10 @@ class MagicCard extends React.Component {
                                 </tr>
                             </tbody>
                         </table>
-                    </Collapse>
+                    </div>
                 </Card>
             </div>
         );
-    }
-    handleCardClick = (e) => {
-        e.persist();
-        if (e.target.attributes['data-icon'] && e.target.attributes['data-icon'].value === 'more') {
-            return;
-        }
-        this.setState({
-            isOpen: !this.state.isOpen
-        })
     }
 }
 

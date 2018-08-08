@@ -154,4 +154,19 @@ body {
   padding-top: 1em;
 }
 
+.card-td-top {
+  vertical-align: top;
+}
 
+.card-rulings {
+  max-width: 30em;
+}
+
+.card-ruling {
+  padding-top: 1em;
+  padding-left: 1em;
+}
+
+.card-ruling-show-hide{
+  padding-left: 1em;
+}

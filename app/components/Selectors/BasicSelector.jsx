@@ -2,29 +2,29 @@ import React from 'react';
 import { Button, MenuItem } from '@blueprintjs/core';
 import { Select } from '@blueprintjs/select';
 
-export default class TypeSelector extends React.Component {
+export default class BasicSelector extends React.Component {
     render() {
-        const {types, selectedType, handleTypeSelect, className} = this.props;
+        const {items, selectedItem, handleItemSelect, className, icon} = this.props;
         return (
             <div className={className}>
                 <Select
-                    items={types}
+                    items={items}
                     itemRenderer={this.renderItems}
                     itemPredicate={this.itemPredicate}
                     noResults={<MenuItem disabled={true} text="No results." />}
-                    onItemSelect={handleTypeSelect}
+                    onItemSelect={handleItemSelect}
                     resetOnClose={true}
                 >
                     <Button 
-                        icon="film" 
+                        icon={icon}
                         rightIcon="caret-down"
-                        text={selectedType ? `${selectedType}` : 'No Selection'}/>
+                        text={selectedItem ? `${selectedItem}` : 'No Selection'}/>
                 </Select>
                 
             </div>
         )
     }
-    renderItems = (type, { handleClick, modifiers, query }) => {
+    renderItems = (item, { handleClick, modifiers, query }) => {
         if (!modifiers.matchesPredicate) {
             return null;
         }
@@ -32,13 +32,13 @@ export default class TypeSelector extends React.Component {
             <MenuItem
                 active={modifiers.active}
                 disabled={modifiers.disabled} 
-                key={type}
+                key={item}
                 onClick={handleClick}
-                text={type}
+                text={item}
             />
         );
     }
-    itemPredicate = (query, type) => {
-        return type.toLowerCase().indexOf(query.toLowerCase()) >= 0;
+    itemPredicate = (query, item) => {
+        return item.toLowerCase().indexOf(query.toLowerCase()) >= 0;
     }
 }

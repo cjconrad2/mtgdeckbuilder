@@ -22,6 +22,6 @@ class CardBox extends React.Component {
 }
 
 export default connect(
-    ({cardSearchString, filteredCards}) => ({cardSearchString, filteredCards}),
+    ({cardSearchString, filteredCards, sets}) => ({cardSearchString, filteredCards, sets}),
     {CardActions}
 )(CardBox)

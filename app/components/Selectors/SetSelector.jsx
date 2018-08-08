@@ -17,7 +17,7 @@ export default class SetSelector extends React.Component {
                 >
                     <Button 
                         className="select-button"
-                        icon="film" 
+                        icon="filter" 
                         rightIcon="caret-down"
                         text={selectedSet ? `${selectedSet.name}` : 'No Selection'}/>
                 </Select>
