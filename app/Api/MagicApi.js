@@ -3,7 +3,7 @@ import request from 'superagent'
 
 module.exports = {
 
-  getCards: function ({setCode, type, subtype}) {
+  getCards: function ({setCode, type, subtype, color, rarity, cmc, name}) {
     var requestUrl = 'https://api.magicthegathering.io/v1/cards'
     var queryStringParts = [];
     if(setCode) {
@@ -15,6 +15,18 @@ module.exports = {
     if(subtype) {
       queryStringParts.push(`subtypes=${subtype}`)
     }
+    if(color) {
+      queryStringParts.push(`colors=${color}`)
+    }
+    if(rarity) {
+      queryStringParts.push(`rarity=${encodeURIComponent(rarity.toLowerCase())}`)
+    }
+    if(cmc) {
+      queryStringParts.push(`cmc=${cmc}`)
+    }
+    if(name) {
+      queryStringParts.push(`name=${encodeURIComponent(name)}`)
+    }
     if(queryStringParts.length > 0)
     {
       requestUrl = requestUrl.concat(`?${queryStringParts.join('&')}`)
@@ -24,8 +36,7 @@ module.exports = {
       .set('Accept', 'application/json')
       .end(function (err, response) {
         if (err) return console.error(err);
-        console.log('cards', response.body.cards)
-        CardActions.receiveCards(response.body);
+        CardActions.receiveCards(response.body.cards);
       });
   },
   getSets: function () {
